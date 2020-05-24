@@ -1,14 +1,37 @@
-import React, { Component } from "react";
-import "./App.css";
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+import Alert from "./components/layout/Alert";
+import About from "./components/pages/About";
+import User from "./components/users/User";
+import GithubState from "./context/github/githubState";
+import AlertState from "./context/alert/alertState";
+import Home from "./components/pages/Home";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <h1>Hello From React</h1>
-      </div>
-    );
-  }
-}
+import "./App.css";
+import NotFound from "./components/pages/NotFound";
+
+const App = () => {
+  return (
+    <GithubState>
+      <AlertState>
+        <BrowserRouter>
+          <div className="App">
+            <Navbar />
+            <div className="container">
+              <Alert />
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/user/:login" component={User} />} />
+                <Route component={NotFound} />
+              </Switch>
+            </div>
+          </div>
+        </BrowserRouter>
+      </AlertState>
+    </GithubState>
+  );
+};
 
 export default App;
